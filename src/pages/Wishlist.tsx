@@ -1,6 +1,6 @@
 //src/pages/Wishlist.tsx
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFavorites } from '../context/FavoritesContext';
 import { StoreItem } from '../components/StoreItem';
 import { StoreItemProps } from '../components/StoreItem';
