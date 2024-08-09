@@ -1,0 +1,28 @@
+[
+    {
+        "id": 1,
+        "name": "Converse",
+        "price": 75,
+        "imgUrl": "/imgs/Converse.jpeg"
+    },
+    {
+        "id": 2,
+        "name": "Nike Dunk",
+        "price": 182,
+        "imgUrl": "/imgs/Nike Dunk.jpeg"
+    },
+    {
+        "id": 3,
+        "name": "Forum Bold",
+        "price": 85,
+        "imgUrl": "/imgs/Forum Bold.jpeg"
+    },
+    {
+        "id": 4,
+        "name": "Jordans",
+        "price": 180,
+        "imgUrl": "/imgs/Jordans.jpeg"
+    }
+]
+
+
