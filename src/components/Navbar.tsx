@@ -1,47 +1,153 @@
-import { Button, Container, Nav, Navbar as Navbarbs } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+// src/components/Navbar.tsx
+import { NavLink, useNavigate } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // Import material icon
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SearchIcon from '@mui/icons-material/Search';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import storeItems from "../data/items.json";
+
+// Define an interface for your store items
+interface StoreItem {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  images: string[];
+  category: {
+    id: number;
+    name: string;
+    image: string;
+  };
+}
 
 export function Navbar() {
-    const { openCart, cartQuantity } = useShoppingCart();
+  const { openCart, cartQuantity } = useShoppingCart();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState<StoreItem[]>([]);
+  const navigate = useNavigate();
 
-    return (
-        <Navbarbs sticky="top" className="bg-white shadow-sm mb-3">
-            <Container>
-                <Nav className="me-auto">
-                    <Nav.Link to="/" as={NavLink}>Home</Nav.Link>
-                    <Nav.Link to="/store" as={NavLink}>Store</Nav.Link>
-                    <Nav.Link to="/wishlist" as={NavLink}>Wishlist</Nav.Link>
-                </Nav>
-                <Button
-                    onClick={openCart}
-                    style={{ width: "4rem", height: "4rem", position: "relative" }}
-                    variant="outline-info"
-                    className="rounded-circle"
-                >
-                    <ShoppingCartIcon style={{ fontSize: "2rem" }} /> {/* Use material icon here */}
-                    {cartQuantity > 0 && (
-                        <div
-                            className="rounded-circle bg-danger d-flex justify-content-center align-items-center"
-                            style={{
-                                color: "white",
-                                width: "2rem",
-                                height: "2rem",
-                                position: "absolute",
-                                bottom: 0,
-                                right: 0,
-                                transform: "translate(25%, 25%)"
-                            }}
-                        >
-                            {cartQuantity}
-                        </div>
-                    )}
-                </Button>
-            </Container>
-        </Navbarbs>
-    );
+  useEffect(() => {
+    if (searchTerm) {
+      const results = storeItems.filter(item =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchTerm]);
+
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (searchTerm) {
+      navigate('/store', { state: { searchResults } });
+      setSearchTerm('');
+    }
+  };
+
+  return (
+    <nav className="bg-black shadow-lg py-0 sticky top-0 z-50">
+      <div className="container mx-auto px-0 flex justify-between items-center">
+        <div className="flex items-center">
+          <img
+            src="/imgs/ShopLoop_logo.png"
+            alt="logo"
+            className="w-25 h-20 object-contain mr-4"
+          />
+        </div>
+        <div className="hidden md:flex space-x-6">
+          <NavLink to="/" className="text-white hover:text-gray-600 transition-colors duration-200">
+            Home
+          </NavLink>
+          <NavLink to="/store" className="text-white hover:text-gray-600 transition-colors duration-200">
+            Store
+          </NavLink>
+          <NavLink to="/wishlist" className="text-white hover:text-gray-600 transition-colors duration-200">
+            Wishlist
+          </NavLink>
+        </div>
+        
+        <div className="flex items-center space-x-4">
+        <form onSubmit={handleSearchSubmit} className="relative">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="bg-white text-black pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 hover:bg-gray-300 transition-colors duration-200"
+            />
+            <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600" />
+          </form>
+          <button
+            onClick={openCart}
+            className="relative w-12 h-12 flex items-center justify-center bg-black rounded-full text-black hover:bg-gray-600 transition-colors duration-200"
+          >
+            <ShoppingCartIcon style={{color:"#4dd0e1", fontSize: "1.6rem" }} />
+            {cartQuantity > 0 && (
+              <div
+                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center"
+              >
+                {cartQuantity}
+              </div>
+            )}
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
 }
+
+
+
+//with bs
+// import { Button, Container, Nav, Navbar as Navbarbs } from "react-bootstrap";
+// import { NavLink } from "react-router-dom";
+// import { useShoppingCart } from "../context/ShoppingCartContext";
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // Import material icon
+
+// export function Navbar() {
+//     const { openCart, cartQuantity } = useShoppingCart();
+
+//     return (
+//         <Navbarbs sticky="top" className="bg-white shadow-sm mb-3">
+//             <Container>
+//                 <Nav className="me-auto">
+//                     <Nav.Link to="/" as={NavLink}>Home</Nav.Link>
+//                     <Nav.Link to="/store" as={NavLink}>Store</Nav.Link>
+//                     <Nav.Link to="/wishlist" as={NavLink}>Wishlist</Nav.Link>
+//                 </Nav>
+//                 <Button
+//                     onClick={openCart}
+//                     style={{ width: "4rem", height: "4rem", position: "relative" }}
+//                     variant="outline-info"
+//                     className="rounded-circle"
+//                 >
+//                     <ShoppingCartIcon style={{ fontSize: "2rem" }} /> {/* Use material icon here */}
+//                     {cartQuantity > 0 && (
+//                         <div
+//                             className="rounded-circle bg-danger d-flex justify-content-center align-items-center"
+//                             style={{
+//                                 color: "white",
+//                                 width: "2rem",
+//                                 height: "2rem",
+//                                 position: "absolute",
+//                                 bottom: 0,
+//                                 right: 0,
+//                                 transform: "translate(25%, 25%)"
+//                             }}
+//                         >
+//                             {cartQuantity}
+//                         </div>
+//                     )}
+//                 </Button>
+//             </Container>
+//         </Navbarbs>
+//     );
+// }
         
 
 // import { Button, Container, Nav, Navbar as Navbarbs } from "react-bootstrap"
