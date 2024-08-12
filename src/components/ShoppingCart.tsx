@@ -43,13 +43,13 @@ export function ShoppingCart({ isOpen, storeItems }: ShoppingCartProps) {
                     <span className="font-semibold text-lg">{formatCurrency(grandTotal)}</span>
                 </div>
                 <button 
-                    className='bg-black text-cyan-300 text-xl px-24 py-3 ml-3'
+                    className='bg-black text-cyan-300 text-lg px-16 py-3 ml-5'
                     onClick={() => {
                         console.log("Checkout clicked");
                         closeCart();
                     }}
                 >
-                    Checkout
+                    PLACE ORDER
                 </button>
             </div>
             </div>

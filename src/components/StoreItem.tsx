@@ -1,4 +1,5 @@
 // src/components/StoreItem.tsx
+import { Link } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -31,7 +32,9 @@ export function StoreItem({ id, title, price, images }: StoreItemProps) {
             />
             <div className="flex flex-col p-4 flex-1">
                 <div className="flex justify-between items-baseline mb-4">
-                    <h2 className="text-lg text-black font-semibold">{title}</h2>
+                <Link to={`/product/${id}`} className="text-lg font-semibold text-gray-700 hover:text-cyan-300">
+          {title}
+        </Link>
                     <span className="text-gray-600">{formatCurrency(price)}</span>
                 </div>
                 <div className="mt-auto">

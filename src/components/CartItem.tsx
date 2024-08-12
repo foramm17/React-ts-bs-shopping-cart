@@ -4,6 +4,7 @@ import { formatCurrency } from "../utilities/formatCurrency";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CloseIcon from '@mui/icons-material/Close';
+import { Link } from "react-router-dom";
 
 // Define the type for the cart item props
 type CartItemProps = {
@@ -32,7 +33,9 @@ export function CartItem({ id, quantity, storeItems }: CartItemProps) {
             />
             <div className="flex-1">
                 <div>
-                    <span>{item.title}</span>
+                    <span><Link to={`/product/${id}`} className="text-gray-700 hover:text-cyan-300">
+          {item.title}
+        </Link></span>
                     <div className="text-gray-500 text-sm">
                         {formatCurrency(item.price)}
                     </div>
@@ -41,22 +44,22 @@ export function CartItem({ id, quantity, storeItems }: CartItemProps) {
             <div className="flex flex-col items-center mr-4 gap-1">
                 <button 
                     onClick={() => increaseCartQuantity(id)}
-                    className="p-0 text-black"
+                    className="p-0 hover:bg-cyan-300 text-black"
                 >
-                    <KeyboardArrowUpIcon fontSize="small" />
+                    <KeyboardArrowUpIcon  fontSize="small" />
                 </button>
                 <span>{quantity}</span>
                 <button 
                     onClick={() => decreaseCartQuantity(id)}
-                    className="p-0 text-black"
+                    className="p-0 hover:bg-cyan-300 text-black"
                 >
-                    <KeyboardArrowDownIcon fontSize="small" />
+                    <KeyboardArrowDownIcon  fontSize="small" />
                 </button>
             </div>
             <div>{formatCurrency(item.price * quantity)}</div>
             <button 
                 onClick={() => removeFromCart(id)}
-                className="p-0 ml-2 text-black"
+                className="p-0 ml-2 hover:bg-red-5  00 text-black"
             >
                 <CloseIcon fontSize="small" />
             </button>
