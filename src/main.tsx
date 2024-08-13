@@ -4,6 +4,7 @@ import App from './App.tsx'
 //import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter } from 'react-router-dom'
 import './index.css';
+import 'antd/dist/antd.css';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
