@@ -67,10 +67,10 @@ export function Store() {
     <div className="px-6 flex">
       {/* Filters Sidebar */}
       <div className="w-1/4 px-4 pt-6 mt-6  mr-4 pb-5 shadow-lg">
-        <h2 className="text-xl font-semibold mb-4">Categories</h2>
+        <h2 className="text-md md:text-xl font-semibold mb-4">Categories</h2>
         <ul className="mb-4">
           {categories.map((category) => (
-            <li key={category} className="text-lg p-3 hover:bg-gray-50">
+            <li key={category} className="text-sm md:text-lg p-3 hover:bg-gray-50">
               <a
                 href="#"
                 onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -144,68 +144,3 @@ export function Store() {
 
 
 
- // const [storeItems, setStoreItems] = useState<StoreItemProps[]>([]);
-
-  // useEffect(() => {
-  //   fetch("https://api.escuelajs.co/api/v1/products")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (Array.isArray(data)) {
-  //         setStoreItems(data);
-  //       } else {
-  //         console.error("Data is not an array:", data);
-  //       }
-  //     })
-  //     .catch((error) => console.error("Error fetching products:", error));
-  // }, []);
-
-//with bs
-// import { Col, Row } from "react-bootstrap";
-// import { StoreItem } from "../components/StoreItem";
-// import { useEffect, useState } from "react";
-// import { StoreItemProps } from '../components/StoreItem';
-
-// export function Store() {
-//   const [storeItems, setStoreItems] = useState<StoreItemProps[]>([]);
-//   useEffect(() => {
-//       fetch('https://api.escuelajs.co/api/v1/products')
-//           .then(response => response.json())
-//           .then(data => {
-//               if (Array.isArray(data)) {
-//                   setStoreItems(data);
-//               } else {
-//                   console.error('Data is not an array:', data);
-//               }
-//           })
-//           .catch(error => console.error('Error fetching products:', error));
-//   }, []);
-  
-//   return (
-//     <>
-//         <h1>Store</h1>
-//         <Row md={2} xs={1} lg={3} className="g-3">
-//             {storeItems.map(item => (
-//                 <Col key={item.id}><StoreItem {...item} /></Col>
-//             ))}
-//         </Row>
-//     </>
-// );
-// } 
-
-// //src/pages/store.tsx
-
-// import { Col, Row } from "react-bootstrap"
-// import storeItems from "../data/items.json"
-// import { StoreItem } from "../components/StoreItem"
-
-
-// export function Store() {
-//     return <>
-//     <h1>Store</h1>
-//     <Row md={2} xs={1} lg={3} className="g-3">
-//         {storeItems.map(item => (
-//         <Col key={item.id}><StoreItem{...item} /></Col>
-//         ))}
-//     </Row>
-//     </>
-// }

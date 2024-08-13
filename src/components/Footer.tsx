@@ -26,7 +26,7 @@ const Footer = () => {
     };
     return (
         <footer className="bg-black text-white mt-4 py-4">
-            <div className="container mx-auto px-4">
+            <div className="px-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Social Media Links */}
                     <div className="text-center md:text-left">
@@ -72,7 +72,7 @@ const Footer = () => {
                 </div>
 
                 {/* Copyright */}
-                <div className="text-center mt-8 pt-8 border-t border-gray-700">
+                <div className="text-center mt-4 pt-4 border-t border-gray-700">
                     <p>&copy; {new Date().getFullYear()} ShopLoop. All rights reserved.</p>
                 </div>
             </div>

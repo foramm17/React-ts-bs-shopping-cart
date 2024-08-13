@@ -1,22 +1,29 @@
-// src/pages/Home.tsx
-// import React from 'react';
-import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useEffect, useState } from 'react';
+import { Carousel } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import 'antd/dist/antd.css';
+import storeItems from '../data/items.json';
+import MultiCarousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 const carouselItems = [
   {
     id: 1,
-    title: "Summer Collection",
-    description: "Discover our latest summer styles",
-    image: "https://i.imgur.com/QkIa5tT.jpeg"
+    title: "Everything You Need, In One Place",
+    description: "From electronics to fashion, home essentials to unique finds, we've got you covered",
+    image: "/imgs/slide1.jpg",
   },
   {
     id: 2,
-    title: "New Arrivals",
-    description: "Check out our fresh new products",
-    image: "https://i.imgur.com/jb5Yu0h.jpeg"
+    title: "Tech That Inspires",
+    description: "Discover the latest smartphones, laptops, gaming consoles, and more.",
+    image: "/imgs/slide2.jpg",
+  },
+  {
+    id: 3,
+    title: " Create Your Dream Home",
+    description: "Explore our range of furniture, home decor, and kitchen essentials.",
+    image: "/imgs/slide3.jpg",
   },
   // Add more items as needed
 ];
@@ -31,67 +38,86 @@ const categories = [
   { id: 7, name: "Makeup", image: "https://images.pexels.com/photos/1115128/pexels-photo-1115128.jpeg?auto=compress&cs=tinysrgb&w=600" },
 ];
 
-export function Home() {
-  const carouselSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-  };
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 1024 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 768, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
-  const categorySettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-        }
-      }
-    ]
-  };
+export function Home() {
+  const navigate = useNavigate();
+  const [bestSellers, setBestSellers] = useState(storeItems);
+
+  useEffect(() => {
+    // Randomize and limit to 10 items
+    const shuffled = [...storeItems].sort(() => 0.5 - Math.random());
+    setBestSellers(shuffled.slice(0, 10));
+  }, []);
 
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-semibold my-6">Welcome to ShopLoop</h1>
+    <div className="">
+      <h1 className="text-3xl font-semibold my-1">Welcome to ShopLoop</h1>
 
       {/* Main Carousel */}
-      <Slider {...carouselSettings} className="mb-12">
-        {carouselItems.map(item => (
+      <Carousel autoplay className="mb-12">
+        {carouselItems.map((item) => (
           <div key={item.id} className="relative">
             <img src={item.image} alt={item.title} className="w-full h-96 object-cover" />
             <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white">
-              <h2 className="text-4xl font-bold mb-2">{item.title}</h2>
-              <p className="text-xl">{item.description}</p>
+              <h2 className="text-2xl text-white font-bold mb-2">{item.title}</h2>
+              <p className="text-lg">{item.description}</p>
+              <Link
+                      to="/store"
+                      className="bg-black text-cyan-300 mt-4 py-1 px-4 text-md hover:bg-gray-600 transition w-full sm:w-auto"
+                    >
+                      SHOP NOW
+                    </Link>
             </div>
           </div>
         ))}
-      </Slider>
+      </Carousel>
 
       {/* Category Slider */}
       <h2 className="text-2xl font-semibold mb-4">Shop by Category</h2>
-      <Slider {...categorySettings} className="mb-12">
-        {categories.map(category => (
+      <MultiCarousel responsive={responsive} className="mb-12">
+        {categories.map((category) => (
           <div key={category.id} className="px-2">
-            <Link to={`/store?category=${category.name}`} className="block">
+            <div
+              onClick={() => navigate('/store', { state: { selectedCategory: category.name } })}
+              className="cursor-pointer block"
+            >
               <img src={category.image} alt={category.name} className="w-full h-40 object-cover rounded-lg mb-2" />
               <h3 className="text-center font-medium">{category.name}</h3>
+            </div>
+          </div>
+        ))}
+      </MultiCarousel>
+
+      {/* Best Seller Products Slider */}
+      <h2 className="text-2xl font-semibold mb-4">Best Sellers</h2>
+      <MultiCarousel responsive={responsive}>
+        {bestSellers.map((item) => (
+          <div key={item.id} className="px-2">
+            <Link to={`/product/${item.id}`} className="block">
+              <img src={item.images[0]} alt={item.title} className="w-full h-40 object-cover rounded-lg mb-2" />
+              <h3 className="text-center font-medium">{item.title}</h3>
             </Link>
           </div>
         ))}
-      </Slider>
+      </MultiCarousel>
     </div>
   );
 }

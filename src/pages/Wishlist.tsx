@@ -28,33 +28,3 @@ export function Wishlist() {
 
 
 
-// import React from 'react';
-// import { useFavorites } from '../context/FavoritesContext';
-// import { StoreItem, StoreItemProps } from '../components/StoreItem';
-
-// // This should be replaced with your actual data source
-// import storeItems from '../data/items.json';
-
-// export function Wishlist() {
-//     const { favorites } = useFavorites();
-
-//     // Filter the store items to get only the favorited ones
-//     const favoriteItems = storeItems.filter(item => favorites.includes(item.id));
-
-//     return (
-//         <div>
-//             <h1>My Wishlist</h1>
-//             {favoriteItems.length === 0 ? (
-//                 <p>You haven't added any items to your wishlist yet.</p>
-//             ) : (
-//                 <div className="row">
-//                     {favoriteItems.map(item => (
-//                         <div key={item.id} className="col-md-4 mb-4">
-//                             <StoreItem {...item} />
-//                         </div>
-//                     ))}
-//                 </div>
-//             )}
-//         </div>
-//     );
-// }
