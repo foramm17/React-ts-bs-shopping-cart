@@ -22,9 +22,9 @@ export function Store() {
   const navigate = useNavigate();
   const searchResults = location.state?.searchResults;
   const searchTerm = location.state?.searchTerm || ""; // Optional, if you want to display the search term
-
+  const initialCategory = location.state?.selectedCategory || "All";
   const [items, setItems] = useState<Item[]>(searchResults || storeItems as Item[]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const [sortOption, setSortOption] = useState<string>("default");
 
@@ -53,6 +53,15 @@ export function Store() {
 
     setItems(filteredItems);
   }, [selectedCategory, priceRange, sortOption, searchResults]);
+
+  useEffect(() => {
+    // This effect handles category changes from the footer
+    if (location.state?.selectedCategory) {
+      setSelectedCategory(location.state.selectedCategory);
+      // Clear the state to avoid persisting the category selection
+      navigate('/store', { replace: true });
+    }
+  }, [location.state, navigate]);
 
   return (
     <div className="px-6 flex">

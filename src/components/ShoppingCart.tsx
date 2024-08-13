@@ -2,6 +2,7 @@ import { Drawer } from 'antd';
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import { CartItem } from "./CartItem";
+import { Link } from 'react-router-dom';
 
 type StoreItem = {
     id: number;
@@ -42,15 +43,16 @@ export function ShoppingCart({ isOpen, storeItems }: ShoppingCartProps) {
                     <span className="font-semibold text-lg">Order Summary:</span>
                     <span className="font-semibold text-lg">{formatCurrency(grandTotal)}</span>
                 </div>
-                <button 
+                <Link 
+                    to="/checkout"
                     className='bg-black text-cyan-300 text-lg px-16 py-3 ml-5'
-                    onClick={() => {
-                        console.log("Checkout clicked");
-                        closeCart();
-                    }}
+                    // onClick={() => {
+                    //     console.log("Checkout clicked");
+                    //     closeCart();
+                    // }}
                 >
                     PLACE ORDER
-                </button>
+                </Link>
             </div>
             </div>
         </Drawer>

@@ -8,6 +8,7 @@ import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import { ItemDetail } from "./pages/ItemDetail";
 import Checkout from "./pages/Checkout";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/wishlist" element={<Wishlist />} />
             </Routes>
+            <Footer />
           </div>
         </div>
       </FavoritesProvider>
