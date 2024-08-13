@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import storeItems from "../data/items.json";
 import { StoreItem } from "../components/StoreItem";
-import { Slider } from 'antd';
-import 'antd/dist/antd.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Slider } from "antd";
+import "antd/dist/antd.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface Item {
   id: number;
@@ -14,31 +14,40 @@ interface Item {
     id: number;
     name: string;
   };
-  // Add other properties as needed
 }
 
 export function Store() {
   const location = useLocation();
   const navigate = useNavigate();
   const searchResults = location.state?.searchResults;
-  const searchTerm = location.state?.searchTerm || ""; // Optional, if you want to display the search term
+  const searchTerm = location.state?.searchTerm || "";
   const initialCategory = location.state?.selectedCategory || "All";
-  const [items, setItems] = useState<Item[]>(searchResults || storeItems as Item[]);
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const [items, setItems] = useState<Item[]>(
+    searchResults || (storeItems as Item[])
+  );
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(initialCategory);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const [sortOption, setSortOption] = useState<string>("default");
 
-  const categories = ["All", ...Array.from(new Set(storeItems.map((item: Item) => item.category.name)))];
+  const categories = [
+    "All",
+    ...Array.from(new Set(storeItems.map((item: Item) => item.category.name))),
+  ];
   const maxPrice = Math.max(...storeItems.map((item: Item) => item.price));
 
   useEffect(() => {
-    let filteredItems: Item[] = searchResults || storeItems as Item[];
+    let filteredItems: Item[] = searchResults || (storeItems as Item[]);
 
     if (selectedCategory !== "All") {
-      filteredItems = filteredItems.filter((item: Item) => item.category.name === selectedCategory);
+      filteredItems = filteredItems.filter(
+        (item: Item) => item.category.name === selectedCategory
+      );
     }
 
-    filteredItems = filteredItems.filter((item: Item) => item.price >= priceRange[0] && item.price <= priceRange[1]);
+    filteredItems = filteredItems.filter(
+      (item: Item) => item.price >= priceRange[0] && item.price <= priceRange[1]
+    );
 
     switch (sortOption) {
       case "priceLowToHigh":
@@ -55,11 +64,9 @@ export function Store() {
   }, [selectedCategory, priceRange, sortOption, searchResults]);
 
   useEffect(() => {
-    // This effect handles category changes from the footer
     if (location.state?.selectedCategory) {
       setSelectedCategory(location.state.selectedCategory);
-      // Clear the state to avoid persisting the category selection
-      navigate('/store', { replace: true });
+      navigate("/store", { replace: true });
     }
   }, [location.state, navigate]);
 
@@ -70,7 +77,10 @@ export function Store() {
         <h2 className="text-md md:text-xl font-semibold mb-4">Categories</h2>
         <ul className="mb-4">
           {categories.map((category) => (
-            <li key={category} className="text-sm md:text-lg p-3 hover:bg-gray-50">
+            <li
+              key={category}
+              className="text-sm md:text-lg p-3 hover:bg-gray-50"
+            >
               <a
                 href="#"
                 onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -103,27 +113,29 @@ export function Store() {
       </div>
 
       {/* Store Items */}
-      
+
       <div className="w-3/4">
-      {searchResults && searchResults.length > 0 && (
-        <div className="mb-4 text-lg">
-          Showing search results for "{searchTerm}"
-          <button
-            className="ml-4 text-cyan-600 hover:text-cyan-800"
-            onClick={() => {
-              setItems(storeItems as Item[]);
-              navigate("/store", { state: {} });
-            }}
-          >
-            Clear search
-          </button>
-        </div>
-      )}
+        {searchResults && searchResults.length > 0 && (
+          <div className="mb-4 text-lg">
+            Showing search results for "{searchTerm}"
+            <button
+              className="ml-4 text-cyan-600 hover:text-cyan-800"
+              onClick={() => {
+                setItems(storeItems as Item[]);
+                navigate("/store", { state: {} });
+              }}
+            >
+              Clear search
+            </button>
+          </div>
+        )}
         <div className="mb-6 flex justify-between items-center">
           <h1 className="text-3xl font-semibold">Store</h1>
           <select
             value={sortOption}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSortOption(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setSortOption(e.target.value)
+            }
             className="px-3 py-2 border rounded-md"
           >
             <option value="default">Default Sorting</option>
@@ -141,6 +153,3 @@ export function Store() {
     </div>
   );
 }
-
-
-

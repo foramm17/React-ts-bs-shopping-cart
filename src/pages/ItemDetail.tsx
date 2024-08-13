@@ -87,7 +87,6 @@ export function ItemDetail() {
           </div>
         </div>
 
-        {/* Item Details */}
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">{item.title}</h1>
           <h3 className="text-xl md:text-lg font-normal mb-4">
@@ -187,11 +186,12 @@ export function ItemDetail() {
             </div>
           </div>
 
-          {/* Shipping Information */}
           <div className="mt-8 bg-gray-100 p-4 rounded">
             <h3 className="text-lg font-semibold mb-2">Shipping Information</h3>
             <p>Free shipping on orders over $50</p>
-            <p><b>Estimated delivery:</b> 3-5 business days</p>
+            <p>
+              <b>Estimated delivery:</b> 3-5 business days
+            </p>
             <p>Express shipping available at checkout</p>
           </div>
         </div>

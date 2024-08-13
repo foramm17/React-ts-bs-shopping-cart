@@ -1,4 +1,3 @@
-// src/App.tsx
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Store } from "./pages/Store";
@@ -16,7 +15,7 @@ function App() {
       <FavoritesProvider>
         <div className="min-h-screen bg-white">
           <Navbar />
-          <div className="px-2 py-4">
+          <div className="px-4 py-2">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/store" element={<Store />} />
@@ -33,4 +32,3 @@ function App() {
 }
 
 export default App;
-

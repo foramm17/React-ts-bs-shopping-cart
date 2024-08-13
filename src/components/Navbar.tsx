@@ -65,7 +65,7 @@ export function Navbar() {
             className="w-25 h-20 object-contain mr-3"
           />
         </div>
-        
+
         {/* Hamburger menu for small and medium screens */}
         <div className="md:hidden">
           <button onClick={toggleMenu} className="text-white">
@@ -96,7 +96,10 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <form onSubmit={handleSearchSubmit} className="relative hidden sm:block">
+          <form
+            onSubmit={handleSearchSubmit}
+            className="relative hidden sm:block"
+          >
             <input
               type="text"
               placeholder="Search products..."
@@ -160,4 +163,3 @@ export function Navbar() {
     </nav>
   );
 }
-
