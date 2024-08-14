@@ -58,6 +58,13 @@ export function Navbar() {
   return (
     <nav className="bg-black shadow-lg py-0 sticky top-0 z-50">
       <div className="mx-auto px-5 flex justify-between items-center">
+        {/* Hamburger menu for small and medium screens */}
+        <div className="md:hidden">
+          <button onClick={toggleMenu} className="text-white">
+            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+        
         <div className="flex items-center">
           <img
             src="/imgs/ShopLoop_logo.png"
@@ -66,12 +73,6 @@ export function Navbar() {
           />
         </div>
 
-        {/* Hamburger menu for small and medium screens */}
-        <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-white">
-            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
-        </div>
 
         {/* Navigation links for large screens */}
         <div className="hidden md:flex space-x-6">
@@ -149,7 +150,7 @@ export function Navbar() {
           >
             Wishlist
           </NavLink>
-          <form onSubmit={handleSearchSubmit} className="p-4">
+          <form onSubmit={handleSearchSubmit} className="block sm:hidden p-4">
             <input
               type="text"
               placeholder="Search products..."

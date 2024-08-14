@@ -3,7 +3,7 @@ import storeItems from "../data/items.json";
 import { StoreItem } from "../components/StoreItem";
 import { Slider } from "antd";
 import "antd/dist/antd.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface Item {
   id: number;
@@ -19,9 +19,12 @@ interface Item {
 export function Store() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { category } = useParams<{ category?: string }>();
+
   const searchResults = location.state?.searchResults;
   const searchTerm = location.state?.searchTerm || "";
-  const initialCategory = location.state?.selectedCategory || "All";
+  const initialCategory = category || "All";
+
   const [items, setItems] = useState<Item[]>(
     searchResults || (storeItems as Item[])
   );
@@ -66,14 +69,17 @@ export function Store() {
   useEffect(() => {
     if (location.state?.selectedCategory) {
       setSelectedCategory(location.state.selectedCategory);
-      navigate("/store", { replace: true });
+      navigate(
+        `/store/${location.state.selectedCategory}`,
+        { state: { searchResults, searchTerm }, replace: true } 
+      );
     }
-  }, [location.state, navigate]);
+  }, [location.state, navigate, searchResults, searchTerm]);
 
   return (
-    <div className="px-6 flex">
+    <div className="px-6 flex flex-col md:flex-row">
       {/* Filters Sidebar */}
-      <div className="w-1/4 px-4 pt-6 mt-6  mr-4 pb-5 shadow-lg">
+      <div className="md:w-1/4 w-full px-4 pt-6 mt-6 mr-4 pb-5 shadow-lg">
         <h2 className="text-md md:text-xl font-semibold mb-4">Categories</h2>
         <ul className="mb-4">
           {categories.map((category) => (
@@ -86,6 +92,9 @@ export function Store() {
                 onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                   e.preventDefault();
                   setSelectedCategory(category);
+                  navigate(`/store/${category.toLowerCase()}`, {
+                    state: { searchResults, searchTerm },
+                  });
                 }}
                 className={
                   selectedCategory === category
@@ -113,8 +122,7 @@ export function Store() {
       </div>
 
       {/* Store Items */}
-
-      <div className="w-3/4">
+      <div className="md:w-3/4 w-full mt-6 md:mt-0">
         {searchResults && searchResults.length > 0 && (
           <div className="mb-4 text-lg">
             Showing search results for "{searchTerm}"

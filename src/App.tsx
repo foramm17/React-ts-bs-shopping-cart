@@ -19,12 +19,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/store" element={<Store />} />
+              <Route path="/store/:category" element={<Store />} />
               <Route path="/product/:id" element={<ItemDetail />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/wishlist" element={<Wishlist />} />
             </Routes>
-            <Footer />
           </div>
+            <Footer />
         </div>
       </FavoritesProvider>
     </ShoppingCartProvider>
