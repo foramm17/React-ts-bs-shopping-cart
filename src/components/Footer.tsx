@@ -21,7 +21,9 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const handleCategoryClick = (category: string) => {
-    navigate("/store", { state: { selectedCategory: category } });
+    navigate(`/store${category.toLowerCase() === 'all' ? '' : `/${category.toLowerCase()}`}`, {
+      state: { selectedCategory: category }
+    });
   };
   return (
     <footer className="bg-black text-white mt-4 py-4">

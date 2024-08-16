@@ -15,7 +15,7 @@ function App() {
       <FavoritesProvider>
         <div className="min-h-screen bg-white">
           <Navbar />
-          <div className="px-4 py-2">
+          <div className="px-2 py-2">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/store" element={<Store />} />

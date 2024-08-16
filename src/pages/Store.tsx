@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import storeItems from "../data/items.json";
 import { StoreItem } from "../components/StoreItem";
-import { Slider } from "antd";
+import { Slider, Select } from "antd";
 import "antd/dist/antd.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+const { Option } = Select;
 
 interface Item {
   id: number;
@@ -23,13 +25,10 @@ export function Store() {
 
   const searchResults = location.state?.searchResults;
   const searchTerm = location.state?.searchTerm || "";
-  const initialCategory = category || "All";
+  const initialCategory = category || location.state?.selectedCategory || "All";
 
-  const [items, setItems] = useState<Item[]>(
-    searchResults || (storeItems as Item[])
-  );
-  const [selectedCategory, setSelectedCategory] =
-    useState<string>(initialCategory);
+  const [items, setItems] = useState<Item[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const [sortOption, setSortOption] = useState<string>("default");
 
@@ -44,7 +43,7 @@ export function Store() {
 
     if (selectedCategory !== "All") {
       filteredItems = filteredItems.filter(
-        (item: Item) => item.category.name === selectedCategory
+        (item: Item) => item.category.name.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -67,43 +66,53 @@ export function Store() {
   }, [selectedCategory, priceRange, sortOption, searchResults]);
 
   useEffect(() => {
-    if (location.state?.selectedCategory) {
+    if (category) {
+      setSelectedCategory(category);
+    } else if (location.state?.selectedCategory) {
       setSelectedCategory(location.state.selectedCategory);
-      navigate(
-        `/store/${location.state.selectedCategory}`,
-        { state: { searchResults, searchTerm }, replace: true } 
-      );
     }
-  }, [location.state, navigate, searchResults, searchTerm]);
+  }, [category, location.state]);
+
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+    navigate(`/store${value.toLowerCase() === 'all' ? '' : `/${value.toLowerCase()}`}`, {
+      state: { searchResults, searchTerm, selectedCategory: value },
+    });
+  };
 
   return (
     <div className="px-6 flex flex-col md:flex-row">
       {/* Filters Sidebar */}
       <div className="md:w-1/4 w-full px-4 pt-6 mt-6 mr-4 pb-5 shadow-lg">
         <h2 className="text-md md:text-xl font-semibold mb-4">Categories</h2>
-        <ul className="mb-4">
-          {categories.map((category) => (
-            <li
-              key={category}
-              className="text-sm md:text-lg p-3 hover:bg-gray-50"
-            >
-              <a
-                href="#"
-                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                  e.preventDefault();
-                  setSelectedCategory(category);
-                  navigate(`/store/${category.toLowerCase()}`, {
-                    state: { searchResults, searchTerm },
-                  });
-                }}
+        {/* Mobile dropdown */}
+        <div className="md:hidden">
+          <Select
+            className="w-full mb-4"
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+          >
+            {categories.map((cat) => (
+              <Option key={cat} value={cat}>
+                {cat}
+              </Option>
+            ))}
+          </Select>
+        </div>
+        {/* Desktop/Tablet list */}
+        <ul className="mb-4 hidden md:block">
+          {categories.map((cat) => (
+            <li key={cat} className="text-sm md:text-lg p-3 hover:bg-gray-50">
+              <button
+                onClick={() => handleCategoryChange(cat)}
                 className={
-                  selectedCategory === category
+                  selectedCategory.toLowerCase() === cat.toLowerCase()
                     ? "text-cyan-600 font-semibold"
                     : "text-gray-600 hover:text-cyan-600"
                 }
               >
-                {category}
-              </a>
+                {cat}
+              </button>
             </li>
           ))}
         </ul>
@@ -139,17 +148,15 @@ export function Store() {
         )}
         <div className="mb-6 flex justify-between items-center">
           <h1 className="text-3xl font-semibold">Store</h1>
-          <select
+          <Select
+            className="w-48"
             value={sortOption}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              setSortOption(e.target.value)
-            }
-            className="px-3 py-2 border rounded-md"
+            onChange={(value: string) => setSortOption(value)}
           >
-            <option value="default">Default Sorting</option>
-            <option value="priceLowToHigh">Price: Low to High</option>
-            <option value="priceHighToLow">Price: High to Low</option>
-          </select>
+            <Option value="default">Default Sorting</Option>
+            <Option value="priceLowToHigh">Price: Low to High</Option>
+            <Option value="priceHighToLow">Price: High to Low</Option>
+          </Select>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
