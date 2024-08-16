@@ -83,7 +83,7 @@ export function Store() {
   return (
     <div className="px-6 flex flex-col md:flex-row">
       {/* Filters Sidebar */}
-      <div className="md:w-1/4 w-full px-4 pt-6 mt-6 mr-4 pb-5 shadow-lg">
+      <div className="md:w-1/5 w-full px-4 pt-6 mt-6 mr-4 pb-5 shadow-lg">
         <h2 className="text-md md:text-xl font-semibold mb-4">Categories</h2>
         {/* Mobile dropdown */}
         <div className="md:hidden">
@@ -131,7 +131,7 @@ export function Store() {
       </div>
 
       {/* Store Items */}
-      <div className="md:w-3/4 w-full mt-6 md:mt-0">
+      <div className="md:w-4/5 w-full mt-6 md:mt-0">
         {searchResults && searchResults.length > 0 && (
           <div className="mb-4 text-lg">
             Showing search results for "{searchTerm}"
@@ -159,7 +159,7 @@ export function Store() {
           </Select>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {items.map((item: Item) => (
             <StoreItem key={item.id} {...item} />
           ))}

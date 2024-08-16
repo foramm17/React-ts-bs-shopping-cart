@@ -45,7 +45,7 @@ export function Navbar() {
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (searchTerm) {
-      navigate("/store", { state: { searchResults } });
+      navigate("/store", { state: { searchResults, searchTerm } });
       setSearchTerm("");
       setSearchResults([]);
     }

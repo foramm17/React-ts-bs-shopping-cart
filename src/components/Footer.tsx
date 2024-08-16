@@ -25,6 +25,7 @@ const Footer = () => {
       state: { selectedCategory: category }
     });
   };
+  
   return (
     <footer className="bg-black text-white mt-4 py-4">
       <div className="px-4">
