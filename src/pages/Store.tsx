@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import storeItems from "../data/items.json";
-import { StoreItem } from "../components/StoreItem";
-import { Slider, Select } from "antd";
-import "antd/dist/antd.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-
-const { Option } = Select;
+import storeItems from "../data/items.json";
+import { FilterSidebar } from "../components/FilterSidebar";
+import { SearchResults } from "../components/SearchResults";
+import { SortDropdown } from "../components/SortDropdown";
+import { StoreItemGrid } from "../components/StoreItemGrid";
 
 interface Item {
   id: number;
@@ -18,17 +17,25 @@ interface Item {
   };
 }
 
+interface LocationState {
+  searchResults?: Item[];
+  searchTerm?: string;
+  selectedCategory?: string;
+}
+
 export function Store() {
   const location = useLocation();
   const navigate = useNavigate();
   const { category } = useParams<{ category?: string }>();
 
-  const searchResults = location.state?.searchResults;
-  const searchTerm = location.state?.searchTerm || "";
-  const initialCategory = category || location.state?.selectedCategory || "All";
+  const locationState = location.state as LocationState;
+  const searchResults = locationState?.searchResults;
+  const searchTerm = locationState?.searchTerm || "";
+  const initialCategory = category || locationState?.selectedCategory || "All";
 
   const [items, setItems] = useState<Item[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(initialCategory);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const [sortOption, setSortOption] = useState<string>("default");
 
@@ -43,7 +50,8 @@ export function Store() {
 
     if (selectedCategory !== "All") {
       filteredItems = filteredItems.filter(
-        (item: Item) => item.category.name.toLowerCase() === selectedCategory.toLowerCase()
+        (item: Item) =>
+          item.category.name.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -68,102 +76,49 @@ export function Store() {
   useEffect(() => {
     if (category) {
       setSelectedCategory(category);
-    } else if (location.state?.selectedCategory) {
-      setSelectedCategory(location.state.selectedCategory);
+    } else if (locationState?.selectedCategory) {
+      setSelectedCategory(locationState.selectedCategory);
     }
-  }, [category, location.state]);
+  }, [category, locationState]);
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
-    navigate(`/store${value.toLowerCase() === 'all' ? '' : `/${value.toLowerCase()}`}`, {
-      state: { searchResults, searchTerm, selectedCategory: value },
-    });
+    navigate(
+      `/store${value.toLowerCase() === "all" ? "" : `/${value.toLowerCase()}`}`,
+      {
+        state: { searchResults, searchTerm, selectedCategory: value },
+      }
+    );
+  };
+
+  const clearSearch = () => {
+    setItems(storeItems as Item[]);
+    navigate("/store", { state: {} });
   };
 
   return (
     <div className="px-6 flex flex-col md:flex-row">
-      {/* Filters Sidebar */}
-      <div className="md:w-1/5 w-full px-4 pt-6 mt-6 mr-4 pb-5 shadow-lg">
-        <h2 className="text-md md:text-xl font-semibold mb-4">Categories</h2>
-        {/* Mobile dropdown */}
-        <div className="md:hidden">
-          <Select
-            className="w-full mb-4"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-          >
-            {categories.map((cat) => (
-              <Option key={cat} value={cat}>
-                {cat}
-              </Option>
-            ))}
-          </Select>
-        </div>
-        {/* Desktop/Tablet list */}
-        <ul className="mb-4 hidden md:block">
-          {categories.map((cat) => (
-            <li key={cat} className="text-sm md:text-lg p-3 hover:bg-gray-50">
-              <button
-                onClick={() => handleCategoryChange(cat)}
-                className={
-                  selectedCategory.toLowerCase() === cat.toLowerCase()
-                    ? "text-cyan-600 font-semibold"
-                    : "text-gray-600 hover:text-cyan-600"
-                }
-              >
-                {cat}
-              </button>
-            </li>
-          ))}
-        </ul>
+      <FilterSidebar
+        categories={categories}
+        selectedCategory={selectedCategory}
+        handleCategoryChange={handleCategoryChange}
+        priceRange={priceRange}
+        setPriceRange={setPriceRange}
+        maxPrice={maxPrice}
+      />
 
-        <h2 className="text-xl font-semibold mb-4">Price Range</h2>
-        <Slider
-          range
-          value={priceRange}
-          min={0}
-          max={maxPrice}
-          onChange={(value: [number, number]) => setPriceRange(value)}
-        />
-        <div className="mt-2 text-sm text-gray-600">
-          ${priceRange[0]} - ${priceRange[1]}
-        </div>
-      </div>
-
-      {/* Store Items */}
       <div className="md:w-4/5 w-full mt-6 md:mt-0">
-        {searchResults && searchResults.length > 0 && (
-          <div className="mb-4 text-lg">
-            Showing search results for "{searchTerm}"
-            <button
-              className="ml-4 text-cyan-600 hover:text-cyan-800"
-              onClick={() => {
-                setItems(storeItems as Item[]);
-                navigate("/store", { state: {} });
-              }}
-            >
-              Clear search
-            </button>
-          </div>
-        )}
+        <SearchResults
+          searchResults={searchResults}
+          searchTerm={searchTerm}
+          clearSearch={clearSearch}
+        />
         <div className="mb-6 flex justify-between items-center">
           <h1 className="text-3xl font-semibold">Store</h1>
-          <Select
-            className="w-48"
-            value={sortOption}
-            onChange={(value: string) => setSortOption(value)}
-          >
-            <Option value="default">Default Sorting</Option>
-            <Option value="priceLowToHigh">Price: Low to High</Option>
-            <Option value="priceHighToLow">Price: High to Low</Option>
-          </Select>
+          <SortDropdown sortOption={sortOption} setSortOption={setSortOption} />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((item: Item) => (
-            <StoreItem key={item.id} {...item} />
-          ))}
-        </div>
+        <StoreItemGrid items={items} />
       </div>
     </div>
   );
