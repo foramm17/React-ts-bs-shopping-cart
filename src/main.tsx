@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import "antd/dist/antd.css";
+import "react-multi-carousel/lib/styles.css"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
