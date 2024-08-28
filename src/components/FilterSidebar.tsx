@@ -14,13 +14,13 @@ interface FilterSidebarProps {
   maxPrice: number;
 }
 
-export function FilterSidebar({ 
-  categories, 
-  selectedCategory, 
-  handleCategoryChange, 
-  priceRange, 
-  setPriceRange, 
-  maxPrice 
+export function FilterSidebar({
+  categories,
+  selectedCategory,
+  handleCategoryChange,
+  priceRange,
+  setPriceRange,
+  maxPrice,
 }: FilterSidebarProps) {
   return (
     <div className="md:w-1/5 w-full px-4 pt-6 mt-6 mr-4 pb-5 shadow-lg">
@@ -40,17 +40,17 @@ export function FilterSidebar({
         </Select>
       </div>
       {/* Desktop/Tablet list */}
-      <CategoryList 
-        categories={categories} 
-        selectedCategory={selectedCategory} 
-        handleCategoryChange={handleCategoryChange} 
+      <CategoryList
+        categories={categories}
+        selectedCategory={selectedCategory}
+        handleCategoryChange={handleCategoryChange}
       />
 
       <h2 className="text-xl font-semibold mb-4">Price Range</h2>
-      <PriceRangeSlider 
-        priceRange={priceRange} 
-        setPriceRange={setPriceRange} 
-        maxPrice={maxPrice} 
+      <PriceRangeSlider
+        priceRange={priceRange}
+        setPriceRange={setPriceRange}
+        maxPrice={maxPrice}
       />
     </div>
   );

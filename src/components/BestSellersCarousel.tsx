@@ -4,23 +4,23 @@ import MultiCarousel from "react-multi-carousel";
 import storeItems from "../data/items.json";
 
 const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 1024 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 1024, min: 768 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 768, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 1024 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 768, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
 export function BestSellersCarousel() {
   const [bestSellers, setBestSellers] = useState(storeItems);

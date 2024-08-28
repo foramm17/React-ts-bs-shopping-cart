@@ -7,7 +7,12 @@ interface ProductInfoProps {
   description: string;
 }
 
-export function ProductInfo({ title, category, price, description }: ProductInfoProps) {
+export function ProductInfo({
+  title,
+  category,
+  price,
+  description,
+}: ProductInfoProps) {
   return (
     <div>
       <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>

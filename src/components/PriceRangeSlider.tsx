@@ -7,7 +7,11 @@ interface PriceRangeSliderProps {
   maxPrice: number;
 }
 
-export function PriceRangeSlider({ priceRange, setPriceRange, maxPrice }: PriceRangeSliderProps) {
+export function PriceRangeSlider({
+  priceRange,
+  setPriceRange,
+  maxPrice,
+}: PriceRangeSliderProps) {
   return (
     <>
       <Slider

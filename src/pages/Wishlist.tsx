@@ -1,5 +1,6 @@
 import { useFavorites } from "../context/FavoritesContext";
-import { StoreItem, StoreItemProps } from "../components/StoreItem";
+import { StoreItem } from "../components/StoreItem";
+import { StoreItemProps } from "../components/types";
 import storeItems from "../data/items.json";
 
 export function Wishlist() {

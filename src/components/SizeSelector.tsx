@@ -12,13 +12,13 @@ interface SizeSelectorProps {
 const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 const shoeSizes = ["4", "5", "6", "7", "8", "9", "10", "11"];
 
-export function SizeSelector({ 
-  isClothing, 
-  isShoes, 
-  selectedSize, 
-  selectedShoeSize, 
-  onSizeChange, 
-  onShoeSizeChange 
+export function SizeSelector({
+  isClothing,
+  isShoes,
+  selectedSize,
+  selectedShoeSize,
+  onSizeChange,
+  onShoeSizeChange,
 }: SizeSelectorProps) {
   if (!isClothing && !isShoes) return null;
 
@@ -29,7 +29,11 @@ export function SizeSelector({
         labelId="size-select-label"
         value={isClothing ? selectedSize : selectedShoeSize}
         label="Size"
-        onChange={(e) => isClothing ? onSizeChange(e.target.value) : onShoeSizeChange(e.target.value)}
+        onChange={(e) =>
+          isClothing
+            ? onSizeChange(e.target.value)
+            : onShoeSizeChange(e.target.value)
+        }
       >
         {(isClothing ? sizes : shoeSizes).map((size) => (
           <MenuItem key={size} value={size}>

@@ -1,4 +1,3 @@
-
 interface Item {
   id: number;
   title: string;
@@ -16,7 +15,11 @@ interface SearchResultsProps {
   clearSearch: () => void;
 }
 
-export function SearchResults({ searchResults, searchTerm, clearSearch }: SearchResultsProps) {
+export function SearchResults({
+  searchResults,
+  searchTerm,
+  clearSearch,
+}: SearchResultsProps) {
   if (!searchResults || searchResults.length === 0) return null;
 
   return (

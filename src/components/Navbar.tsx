@@ -64,7 +64,7 @@ export function Navbar() {
             {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
-        
+
         <div className="flex items-center">
           <img
             src="/imgs/ShopLoop_logo.png"
@@ -72,7 +72,6 @@ export function Navbar() {
             className="w-25 h-20 object-contain mr-3"
           />
         </div>
-
 
         {/* Navigation links for large screens */}
         <div className="hidden md:flex space-x-6">

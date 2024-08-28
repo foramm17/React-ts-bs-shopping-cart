@@ -4,7 +4,11 @@ interface CategoryListProps {
   handleCategoryChange: (category: string) => void;
 }
 
-export function CategoryList({ categories, selectedCategory, handleCategoryChange }: CategoryListProps) {
+export function CategoryList({
+  categories,
+  selectedCategory,
+  handleCategoryChange,
+}: CategoryListProps) {
   return (
     <ul className="mb-4 hidden md:block">
       {categories.map((cat) => (

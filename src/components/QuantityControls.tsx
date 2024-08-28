@@ -11,13 +11,13 @@ interface QuantityControlsProps {
   onFavoriteClick: () => void;
 }
 
-export function QuantityControls({ 
-  quantity, 
-  onIncrease, 
-  onDecrease, 
-  onRemove, 
-  isFavorite, 
-  onFavoriteClick 
+export function QuantityControls({
+  quantity,
+  onIncrease,
+  onDecrease,
+  onRemove,
+  isFavorite,
+  onFavoriteClick,
 }: QuantityControlsProps) {
   return (
     <div className="mt-4">
