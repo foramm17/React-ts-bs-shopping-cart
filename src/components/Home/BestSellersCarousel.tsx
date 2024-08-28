@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MultiCarousel from "react-multi-carousel";
-import storeItems from "../data/items.json";
+import storeItems from "../../data/items.json";
 
 const responsive = {
   superLargeDesktop: {

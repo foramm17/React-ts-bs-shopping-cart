@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { formatCurrency } from "../utilities/formatCurrency";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 type ItemInfoProps = {
   id: number;

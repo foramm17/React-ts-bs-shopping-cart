@@ -1,5 +1,5 @@
 import { useFavorites } from "../context/FavoritesContext";
-import { StoreItem } from "../components/StoreItem";
+import { StoreItem } from "../components/StoreItem/StoreItem";
 import { StoreItemProps } from "../components/types";
 import storeItems from "../data/items.json";
 

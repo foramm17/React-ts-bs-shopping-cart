@@ -1,4 +1,4 @@
-import { StoreItem } from "../components/StoreItem";
+import { StoreItem } from "../StoreItem/StoreItem";
 
 interface Item {
   id: number;

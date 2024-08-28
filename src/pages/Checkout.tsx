@@ -1,14 +1,24 @@
 import { Link } from "react-router-dom";
 
-const CheckoutPage = () => {
+export default function Checkout() {
+  const backgroundStyle = {
+    backgroundImage: 'url("/imgs/Checkout bg.jpg")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  };
+
   return (
-    <main className="flex-grow flex flex-col items-center justify-center p-4 text-center bg-gray-100">
-      <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold mb-4">
+    <main 
+      className="flex-grow flex flex-col items-center justify-center p-4 text-center"
+      style={backgroundStyle}
+    >
+      <div className="max-w-2xl mx-auto bg-white bg-opacity-50 p-8 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">
           Thank you for shopping with ShopLoop!
         </h2>
-        <p className="mb-4">Hope you enjoyed your experience.</p>
-        <p className="mb-8">
+        <p className="mb-4 text-gray-700">Hope you enjoyed your experience.</p>
+        <p className="mb-8 text-gray-700">
           Keep exploring our wide range of products to discover more exciting
           offers and deals.
         </p>
@@ -18,10 +28,9 @@ const CheckoutPage = () => {
         >
           Continue Shopping
         </Link>
-        <p className="mt-8">Happy shopping and see you again soon!</p>
+        <p className="mt-8 text-gray-700">Happy shopping and see you again soon!</p>
       </div>
     </main>
   );
-};
+}
 
-export default CheckoutPage;

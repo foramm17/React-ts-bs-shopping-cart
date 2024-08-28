@@ -1,6 +1,6 @@
-import { MainCarousel } from "../components/MainCarousel";
-import { CategoryCarousel } from "../components/CategoryCarousel";
-import { BestSellersCarousel } from "../components/BestSellersCarousel";
+import { MainCarousel } from "../components/Home/MainCarousel";
+import { CategoryCarousel } from "../components/Home/CategoryCarousel";
+import { BestSellersCarousel } from "../components/Home/BestSellersCarousel";
 
 export function Home() {
   return (

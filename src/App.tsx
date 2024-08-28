@@ -2,12 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Store } from "./pages/Store";
 import { Wishlist } from "./pages/Wishlist";
-import { Navbar } from "./components/Navbar";
+import { Navbar } from "./components/Navbar/Navbar";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import { ItemDetail } from "./pages/ItemDetail";
 import Checkout from "./pages/Checkout";
-import { Footer } from "./components/Footer";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
             </Routes>
           </div>
-            <Footer />
+          <Footer />
         </div>
       </FavoritesProvider>
     </ShoppingCartProvider>

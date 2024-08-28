@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import storeItems from "../data/items.json";
-import { FilterSidebar } from "../components/FilterSidebar";
-import { SearchResults } from "../components/SearchResults";
-import { SortDropdown } from "../components/SortDropdown";
-import { StoreItemGrid } from "../components/StoreItemGrid";
+import { FilterSidebar } from "../components/Store/FilterSidebar";
+import { SearchResults } from "../components/Store/SearchResults";
+import { SortDropdown } from "../components/Store/SortDropdown";
+import { StoreItemGrid } from "../components/Store/StoreItemGrid";
 
 interface Item {
   id: number;

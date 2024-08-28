@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import storeItems from "../data/items.json";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { useFavorites } from "../context/FavoritesContext";
-import { ImageGallery } from "../components/ImageGallery";
-import { ProductInfo } from "../components/ProductInfo";
-import { SizeSelector } from "../components/SizeSelector";
-import { QuantityControls } from "../components/QuantityControls";
-import { ShippingInfo } from "../components/ShippingInfo";
+import { ImageGallery } from "../components/ItemDetails/ImageGallery";
+import { ProductInfo } from "../components/ItemDetails/ProductInfo";
+import { SizeSelector } from "../components/ItemDetails/SizeSelector";
+import { QuantityControls } from "../components/ItemDetails/QuantityControls";
+import { ShippingInfo } from "../components/ItemDetails/ShippingInfo";
 
 interface Category {
   id: number;

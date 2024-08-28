@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { Logo } from "./Logo";
 import { NavLinks } from "./NavLinks";
 import { SearchBar } from "./SearchBar";

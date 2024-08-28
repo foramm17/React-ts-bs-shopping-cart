@@ -1,4 +1,4 @@
-import { formatCurrency } from "../utilities/formatCurrency";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 interface ProductInfoProps {
   title: string;

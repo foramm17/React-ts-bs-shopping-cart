@@ -1,10 +1,10 @@
-import { StoreItemProps } from "./types";
+import { StoreItemProps } from "../types";
 import { ItemInfo } from "./ItemInfo";
 import { ItemImage } from "./ItemImage";
 import { Quantity } from "./Quantity";
 import { FavoriteButton } from "./FavoriteButton";
-import { useShoppingCart } from "../context/ShoppingCartContext";
-import { useFavorites } from "../context/FavoritesContext";
+import { useShoppingCart } from "../../context/ShoppingCartContext";
+import { useFavorites } from "../../context/FavoritesContext";
 
 export function StoreItem({ id, title, price, images }: StoreItemProps) {
   const { getItemQuantity, increaseCartQuantity } = useShoppingCart();

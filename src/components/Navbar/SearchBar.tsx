@@ -1,7 +1,7 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import storeItems from "../data/items.json";
+import storeItems from "../../data/items.json";
 
 interface StoreItem {
   id: number;
