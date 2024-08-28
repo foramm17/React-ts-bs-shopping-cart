@@ -18,7 +18,7 @@ export function NavLinks({ className = "", onClick }: NavLinksProps) {
         <NavLink
           key={link.to}
           to={link.to}
-          className="block text-white py-2 px-5 md:px-0 hover:bg-gray-700 transition-colors duration-200"
+          className="block text-white py-2 px-5 md:px-0 hover:text-gray-700 transition-colors duration-200"
           onClick={onClick}
         >
           {link.text}

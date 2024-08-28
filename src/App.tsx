@@ -7,7 +7,7 @@ import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import { ItemDetail } from "./pages/ItemDetail";
 import Checkout from "./pages/Checkout";
-import Footer from "./components/Footer";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
