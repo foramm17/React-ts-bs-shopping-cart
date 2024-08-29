@@ -18,7 +18,7 @@ export function StoreItem({ id, title, price, images }: StoreItemProps) {
       <div className="flex flex-col p-4 flex-1">
         <ItemInfo id={id} title={title} price={price} />
         <div className="mt-auto">
-          <div className="flex justify-between items-center gap-4 mb-2">
+          <div className="flex justify-between items-center gap-2 mb-2">
             {quantity === 0 ? (
               <button
                 className="w-full bg-black hover:bg-gray-900 text-cyan-300 py-2 transition"

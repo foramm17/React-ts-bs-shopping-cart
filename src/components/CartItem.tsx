@@ -35,7 +35,7 @@ export function CartItem({ id, quantity, storeItems }: CartItemProps) {
           <span>
             <Link
               to={`/product/${id}`}
-              className="text-gray-700 hover:text-cyan-300"
+              className="text-gray-700 hover:text-cyan-300 line-clamp-2 hover:line-clamp-4"
             >
               {item.title}
             </Link>
